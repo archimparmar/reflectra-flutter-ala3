@@ -1,226 +1,137 @@
-🌿 Reflectra – Growth Prompts App
+# Reflectra – Self Reflection App
 
-ALA-2: RESTful API Integration & Repository Submission
-Frameworks of Android Development (FAD)
+Reflectra is a Flutter based self-reflection application designed to help users improve self-awareness and personal growth.  
+The application asks reflective questions, allows users to record thoughts, log regrets with lessons learned, and analyze emotional patterns through a personality dashboard.
 
-📌 Project Overview
+This project was developed as part of **ALA-3: Persistent Data Management** in the **Frameworks of Android Development** course.
 
-Reflectra is a self-reflection web and mobile application developed using Flutter.
-The app encourages personal growth by presenting users with a single meaningful question derived from an inspirational quote every 12 hours.
+---
 
-Users can:
+## Features
 
-Reflect on the question
+### 1. Daily Reflection
+Users can answer thoughtful questions that encourage personal reflection and self-analysis.
 
-Write their thoughts
+### 2. Mood Tracker
+Each reflection allows the user to record their emotional state such as:
+- Happy
+- Neutral
+- Sad
+- Frustrated
+- Calm
 
-Save responses
+### 3. Reflection History
+All reflections are stored locally and can be viewed later using a searchable history list.
 
-View their reflection history
+### 4. Manual Regret Logging
+Users can manually log:
+- Regret
+- Lesson learned
+- Category (Productivity, Relationships, Health, etc.)
 
-This project demonstrates REST API integration, JSON parsing, state management, local storage, and UI design using Flutter.
+This helps users learn from mistakes and track personal improvement.
 
-🎯 Objective of ALA-2
+### 5. Personality Dashboard
+The dashboard analyzes stored data and displays insights such as:
 
-As per the ALA-2 requirements:
+- Total reflections written
+- Total regrets logged
+- Reflection streak
+- Most common mood
+- Dominant life category
 
-Students will integrate a public REST API into a Flutter application, parse JSON data, and display it using ListView or GridView. The complete project code must be uploaded to GitHub, and the output description must be included in the README file.
+Based on the data, the application generates simple personality insights.
 
-This project fulfills the objective by:
+### 6. Reflection Streak
+Tracks how consistently a user records reflections.
 
-Integrating a public REST API
+---
 
-Parsing JSON response
+## Technologies Used
 
-Displaying dynamic content
+- Flutter
+- Dart
+- SharedPreferences (Local Storage)
+- Material UI
 
-Storing user-generated data
+---
 
-Providing structured navigation
+## Persistent Data Management
 
-Supporting Flutter Web
+The application uses **SharedPreferences** to store and retrieve data locally.
 
-🌐 REST API Used
+Stored data includes:
 
-API Endpoint:
+- Reflection answers
+- Mood selections
+- Regret logs
+- Lessons learned
+- Reflection streak data
 
-https://dummyjson.com/quotes/random
-Why this API?
+Data is saved in JSON format and retrieved whenever the app is opened.
 
-No authentication required
+---
 
-CORS supported (works with Flutter Web)
+## Application Workflow
 
-Returns structured JSON
+1. The user opens the app and selects **Write Reflection**.
+2. The app displays a reflective question.
+3. The user writes their thoughts and selects a mood.
+4. The reflection is stored locally using SharedPreferences.
+5. The user can view past reflections in the **History screen**.
+6. The **Regret Logging** feature allows users to record mistakes and lessons learned.
+7. The **Dashboard** analyzes stored reflections and regrets to generate personality insights.
 
-Reliable and lightweight
+---
 
-Sample API Response:
-{
-"id": 42,
-"quote": "Believe you can and you're halfway there.",
-"author": "Theodore Roosevelt"
-}
-🔄 API Integration Process
-
-HTTP GET request sent using http package.
-
-JSON response decoded using dart:convert.
-
-Parsed into a Quote model class.
-
-Converted into a reflection question:
-
-“How does this idea reflect your current life?”
-
-Displayed dynamically in the UI.
-
-⏳ 12-Hour Question Logic
-
-Reflectra ensures:
-
-Only one question is shown at a time.
-
-A new question appears automatically after 12 hours.
-
-Countdown timer displays remaining time.
-
-The same question persists within the 12-hour window.
-
-This is implemented using:
-
-DateTime
-
-Timer.periodic
-
-SharedPreferences for local storage
-
-💾 Local Storage
-
-Reflectra uses shared_preferences to store:
-
-Current question
-
-Timestamp of last question
-
-User reflections (stored as JSON strings)
-
-This ensures:
-
-Data persists across sessions
-
-Works on Flutter Web and Mobile
-
-No backend required
-
-📱 Application Features
-✅ Core Features
-
-Fetches dynamic question from REST API
-
-Converts quote into reflective prompt
-
-12-hour automatic refresh
-
-Countdown display
-
-Save reflection locally
-
-Reflection history page
-
-Clean and modern UI
-
-Dark mode support
-
-Flutter Web compatible
-
-🗂 Project Structure
+## Project Structure
 lib/
-├── models/
-│    ├── quote_model.dart
-│    └── answer_model.dart
+├── models
+│ ├── answer_model.dart
+│ ├── regret_model.dart
 │
-├── screens/
-│    ├── home_screen.dart
-│    ├── reflection_screen.dart
-│    └── history_screen.dart
+├── screens
+│ ├── home_screen.dart
+│ ├── reflection_screen.dart
+│ ├── history_screen.dart
+│ ├── dashboard_screen.dart
+│ ├── add_regret_screen.dart
 │
-├── services/
-│    └── api_service.dart
-│
-├── storage/
-│    └── local_storage.dart
+├── storage
+│ └── local_storage.dart
 │
 └── main.dart
-🛠 Technologies Used
 
-Flutter
 
-Dart
+---
 
-RESTful API
+## Learning Outcome
 
-HTTP Package
+Through this project, the following concepts were implemented:
 
-SharedPreferences
+- Flutter application structure
+- Local persistent storage using SharedPreferences
+- JSON data handling
+- State management in Flutter
+- User interface design using Material widgets
+- Basic data analytics for personal insights
 
-Material UI
+---
 
-Flutter Web
+## GitHub Repository
 
-▶️ How to Run the Project
-1️⃣ Clone Repository
-git clone <your-repo-link>
-2️⃣ Navigate to Project
-cd reflectra
-3️⃣ Install Dependencies
-flutter pub get
-4️⃣ Run on Chrome (Web)
-flutter run -d chrome
-📊 Learning Outcomes Achieved
+Project Repository:
 
-Through this ALA-2 activity, the following concepts were implemented:
+https://github.com/archimparmar/reflectra-flutter-ala3
 
-Understanding REST API architecture
+---
 
-Making HTTP requests in Flutter
+## Author
 
-JSON parsing and model creation
-
-State management with StatefulWidget
-
-Local storage handling
-
-Timer-based logic implementation
-
-UI/UX improvement using Material Design
-
-GitHub project documentation
-
-🔮 Future Enhancements
-
-Daily reflection streak tracking
-
-Export reflections as PDF
-
-Firebase cloud backup
-
-User authentication
-
-Push notifications after 12 hours
-
-Custom question categories
-
-🧠 Conclusion
-
-Reflectra successfully demonstrates REST API integration within a Flutter application. The project not only fulfills ALA-2 requirements but also extends functionality with timed refresh logic, local data persistence, and enhanced UI design.
-
-The application provides a meaningful personal growth experience while showcasing practical implementation of API-driven development.
-
-👩‍💻 Developed By
-
-Name: Archi Mukeshbhai Parmar
-Class: B
-Branch: CE
-Subject: Frameworks of Android Development
-Activity: ALA-2
+Archi Parmar  
+20230905040030
+Class B 
+CE
+Sem 6
+Computer Engineering  
+Gyanmanjari Innovative University
