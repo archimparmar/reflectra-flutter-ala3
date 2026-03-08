@@ -3,6 +3,7 @@ import '../models/answer_model.dart';
 import '../storage/local_storage.dart';
 
 class ReflectionScreen extends StatefulWidget {
+
   final String question;
   final String? existingAnswer;
   final int? index;
@@ -19,9 +20,13 @@ class ReflectionScreen extends StatefulWidget {
       _ReflectionScreenState();
 }
 
-class _ReflectionScreenState extends State<ReflectionScreen> {
+class _ReflectionScreenState
+    extends State<ReflectionScreen> {
+
   final TextEditingController controller =
   TextEditingController();
+
+  String selectedMood = "🙂 Happy";
 
   @override
   void initState() {
@@ -33,11 +38,11 @@ class _ReflectionScreenState extends State<ReflectionScreen> {
   }
 
   void saveAnswer() async {
-    if (controller.text.isEmpty) return;
 
     final answer = AnswerModel(
       question: widget.question,
       answer: controller.text,
+      mood: selectedMood,
       date: DateTime.now().toString(),
     );
 
@@ -48,47 +53,71 @@ class _ReflectionScreenState extends State<ReflectionScreen> {
       await LocalStorage.saveAnswer(answer);
     }
 
-    if (!mounted) return;
-
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar:
-      AppBar(title: const Text("Your Reflection")),
+      appBar: AppBar(
+        title: const Text("Your Reflection"),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
-          crossAxisAlignment:
-          CrossAxisAlignment.start,
           children: [
+
             Text(
               widget.question,
               style: const TextStyle(
                   fontWeight: FontWeight.bold),
             ),
+
             const SizedBox(height: 20),
+
             TextField(
               controller: controller,
-              maxLines: 6,
-              decoration: InputDecoration(
-                hintText: "Write your reflection",
-                border: OutlineInputBorder(
-                  borderRadius:
-                  BorderRadius.circular(16),
-                ),
+              maxLines: 5,
+              decoration: const InputDecoration(
+                hintText: "Write your reflection...",
               ),
             ),
+
             const SizedBox(height: 20),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: saveAnswer,
-                child: const Text("Save Reflection"),
-              ),
-            )
+
+            DropdownButton<String>(
+              value: selectedMood,
+              items: const [
+                DropdownMenuItem(
+                    value: "🙂 Happy",
+                    child: Text("🙂 Happy")),
+                DropdownMenuItem(
+                    value: "😐 Neutral",
+                    child: Text("😐 Neutral")),
+                DropdownMenuItem(
+                    value: "😔 Sad",
+                    child: Text("😔 Sad")),
+                DropdownMenuItem(
+                    value: "😡 Frustrated",
+                    child: Text("😡 Frustrated")),
+                DropdownMenuItem(
+                    value: "😌 Calm",
+                    child: Text("😌 Calm")),
+              ],
+              onChanged: (value) {
+                setState(() {
+                  selectedMood = value!;
+                });
+              },
+            ),
+
+            const SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: saveAnswer,
+              child: const Text("Save Reflection"),
+            ),
           ],
         ),
       ),
